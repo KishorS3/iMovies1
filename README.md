@@ -1,59 +1,93 @@
-# 🎬 iMovies — Movie Booking System
 
-## About the Project
+# 🎬 iMovies — Movie Ticket Booking System
 
-iMovies is a movie browsing and ticket booking web application built using the MERN stack. It allows users to explore popular movies, search by title, view movie genres and ratings, and book tickets through a simple user interface.
+iMovies is a movie ticket booking web application built with React, TypeScript, Node.js, Express.js, and MongoDB. Users can explore movies, search for titles, create accounts, sign in, and book movie tickets.
 
-The application uses React and TypeScript for the frontend, Node.js and Express.js for the backend, and MongoDB to store booking information.
+## ✨ Features
 
-## Features
+### Implemented
+- 🎬 Movie listing and search
+- 🔐 User registration and login
+- 🔑 Password hashing with bcrypt
+- 🪪 JWT token generation during login
+- 📄 Separate Login and Registration pages
+- 🧭 Client-side navigation using React Router
+- 🎟️ Movie ticket booking form
+- 💾 Store bookings in MongoDB
+- 📱 Responsive, dark-themed user interface
+- 🚪 Logout functionality
 
-- Browse popular movies
-- Search movies by title
-- View movie genres and ratings
-- Select a movie for booking
-- Enter customer details and ticket quantity
-- Save bookings in MongoDB
-- REST API integration between frontend and backend
+### Planned Improvements
+- Server-side JWT verification for protected booking APIs
+- Movie seat selection and availability
+- Booking history and cancellation
+- Admin dashboard for managing movies and showtimes
+- Online payment gateway integration
 
-## Technologies Used
+## 🛠️ Technologies Used
 
-- **Frontend:** React, TypeScript, HTML, CSS, Vite
-- **Backend:** Node.js, Express.js
-- **Database:** MongoDB, Mongoose
-- **Other tools:** Git, GitHub, VS Code
+### Frontend
+- React
+- TypeScript
+- Vite
+- React Router DOM
+- CSS
 
-## Project Structure
+### Backend
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- JSON Web Tokens (JWT)
+- bcryptjs
+- dotenv
+- CORS
+
+## 📁 Project Structure
 
 ```text
 iMovies/
 ├── client/
-│   └── src/
-│       ├── App.tsx
-│       ├── main.tsx
-│       └── style.css
+│   ├── src/
+│   │   ├── pages/
+│   │   │   ├── Login.tsx
+│   │   │   └── Register.tsx
+│   │   ├── App.tsx
+│   │   ├── main.tsx
+│   │   └── style.css
+│   ├── package.json
+│   └── index.html
 ├── server.js
 ├── package.json
+├── package-lock.json
+├── .env
 ├── .gitignore
 └── README.md
 ```
 
-## Requirements
+## ⚙️ Prerequisites
 
-- Node.js and npm
-- MongoDB installed and running
-- Git (optional, for version control)
+Install the following before running the project:
 
-## Installation and Setup
+- [Node.js](https://nodejs.org/)
+- [MongoDB Community Server](https://www.mongodb.com/try/download/community)
+- [Git](https://git-scm.com/)
+- A code editor such as Visual Studio Code
+
+## 🚀 Installation and Setup
 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/KishorS3/iMovies.git
+git clone https://github.com/KishorS3/iMovies1.git
 cd iMovies
 ```
 
+If you already have the project on your computer, open your existing project folder instead.
+
 ### 2. Install Backend Dependencies
+
+Open a terminal in the project root:
 
 ```bash
 npm install
@@ -66,53 +100,118 @@ Create a `.env` file in the project root:
 ```env
 MONGO_URI=mongodb://127.0.0.1:27017/imovies
 PORT=5000
+JWT_SECRET=replace_with_a_long_random_secret
 ```
 
-Do not upload your `.env` file or database credentials to GitHub.
+Use a strong, private JWT secret. Never commit your `.env` file or publish your secret to GitHub.
 
-### 4. Start the Backend
+### 4. Install Frontend Dependencies
 
-```bash
-node server.js
-```
-
-The backend runs at `http://localhost:5000`.
-
-### 5. Start the Frontend
-
-Open a second terminal:
+Open a terminal and run:
 
 ```bash
 cd client
 npm install
-npm run dev
 ```
 
-Open the local URL shown in the terminal, usually `http://localhost:5173`.
+On Windows PowerShell, if `npm` is blocked by the execution policy, use:
 
-## API Endpoints
+```powershell
+npm.cmd install
+```
 
-| Method | Endpoint | Description |
+## ▶️ Running the Application
+
+Run the backend and frontend in two separate terminals.
+
+### Terminal 1 — Backend
+
+From the project root:
+
+```powershell
+cd D:\iMovies
+node server.js
+```
+
+Backend URL:
+
+`http://localhost:5000`
+
+### Terminal 2 — Frontend
+
+```powershell
+cd D:\iMovies\client
+npm.cmd run dev
+```
+
+Open the URL displayed by Vite, usually:
+
+`http://localhost:5173`
+
+Make sure MongoDB is running before starting the backend.
+
+## 🔗 Application Pages
+
+| Page | URL |
+|---|---|
+| Home | `http://localhost:5173/` |
+| Login | `http://localhost:5173/login` |
+| Register | `http://localhost:5173/register` |
+
+## 🔌 API Endpoints
+
+The backend runs at `http://localhost:5000`.
+
+| Method | Endpoint | Purpose |
 |---|---|---|
-| GET | `/` | Check API status |
-| GET | `/api/movies` | Retrieve the movie list |
+| GET | `/api/movies` | Retrieve movies |
+| POST | `/api/auth/register` | Register a new user |
+| POST | `/api/auth/login` | Authenticate a user |
 | POST | `/api/bookings` | Create a ticket booking |
 
-## Current Project Scope
+**Security note:** JWT tokens are generated during login, and the frontend checks whether a user is signed in before allowing a booking attempt. Server-side JWT verification must be implemented on the booking endpoint before it can be considered protected.
 
-The current implementation supports movie browsing, title search, and basic ticket booking with MongoDB persistence. Authentication, online payments, theatre/showtime management, and real-time seat availability are potential future enhancements.
+## 🗄️ Database
 
-## Future Enhancements
+The project uses MongoDB with Mongoose.
 
-- User registration and login
-- Admin dashboard
-- Theatre and showtime management
-- Seat selection and availability tracking
-- Booking history and cancellation
-- Online payment integration
+Default database:
 
-## Author
+`imovies`
 
-**KishorS3**
+The application stores user accounts and ticket booking records in MongoDB. User passwords are hashed before storage.
 
-GitHub: https://github.com/KishorS3
+## 🔒 Security Notes
+
+- Keep `.env` private.
+- Use a strong JWT secret.
+- Never store plain-text passwords.
+- Validate all user input on the backend.
+- Protect booking endpoints with server-side JWT verification.
+- Restrict administrative privileges to authorized users.
+- Use HTTPS and appropriate security settings before public deployment.
+
+## 🧪 Testing
+
+1. Start MongoDB.
+2. Start the backend.
+3. Start the frontend.
+4. Open the homepage.
+5. Register a new account.
+6. Sign in using the registered credentials.
+7. Search for movies.
+8. Submit a ticket booking and verify the result in MongoDB.
+
+## 🔮 Future Scope
+
+Future development may include interactive seat selection, theatre and showtime management, booking history, cancellation and refunds, an admin dashboard, and payment gateway integration.
+
+## 👨‍💻 Author
+
+**Kishor Sakunde**
+
+GitHub: [KishorS3](https://github.com/KishorS3)
+
+## 📄 License
+
+This project is intended for learning and educational purposes. Add a formal license if you plan to distribute it publicly.
